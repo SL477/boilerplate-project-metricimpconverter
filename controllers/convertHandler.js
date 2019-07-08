@@ -28,6 +28,9 @@ function ConvertHandler() {
     if (slashLoc > -1) {
       //console.log(parseFloat(result.substring(0, slashLoc)));
       //console.log(parseFloat(result.substring(slashLoc + 1)));
+      if (result.substring(0, slashLoc).indexOf("/") > -1 || result.substring(slashLoc + 1).indexOf("/") > -1) {
+        return 'invalid number';
+      }
       result = parseFloat(result.substring(0, slashLoc)) / parseFloat(result.substring(slashLoc + 1));
     }
 
@@ -40,16 +43,20 @@ function ConvertHandler() {
     if (match){
       result = input.substring(match.index);
     }
-    return result;
+    var validUnits = ['gal', 'l', 'lbs', 'kg', 'mi', 'km'];
+    if (validUnits.includes(result.toLowerCase())) {
+      return result;
+    }
+    return 'invalid unit';
   };
   
   this.getReturnUnit = function(initUnit) {
     var result;
-    switch (initUnit) {
+    switch (initUnit.toLowerCase()) {
       case "gal":
         result = "L";
         break;
-      case "L":
+      case "l":
         result = "gal";
         break;
       case "lbs":
@@ -73,9 +80,9 @@ function ConvertHandler() {
 
   this.spellOutUnit = function(unit) {
     var result;
-    switch (unit) {
+    switch (unit.toLowerCase()) {
       case "gal":
-        result = "gallon";
+        result = "gallons";
         break;
       case "lbs":
         result = "pounds";
@@ -83,7 +90,7 @@ function ConvertHandler() {
       case "mi":
         result = "miles";
         break;
-      case "L":
+      case "l":
         result = "litres";
         break;
       case "kg":
@@ -103,6 +110,10 @@ function ConvertHandler() {
     const lbsToKg = 0.453592;
     const miToKm = 1.60934;
     var result;
+    /*console.log(typeof initNum);
+    if (typeof(initNum) != 'number') {
+      return 'invalid number';
+    }*/
     
     switch (initUnit) {
       case "gal":
@@ -128,8 +139,10 @@ function ConvertHandler() {
       default:
         return "invalid number";
     }
-
-    return result.toFixed(5);
+    if (typeof(result) != 'number' || initNum == 'invalid number') {
+      return 'invalid number';
+    }
+    return parseFloat(result.toFixed(5));
   };
   
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
