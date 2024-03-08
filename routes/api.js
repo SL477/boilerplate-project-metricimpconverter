@@ -8,10 +8,10 @@
 
 'use strict';
 
-var expect = require('chai').expect;
-var ConvertHandler = require('../controllers/convertHandler.js');
+// var expect = require('chai').expect;
+import ConvertHandler from '../controllers/convertHandler.js';
 
-module.exports = function (app) {
+export default function (app) {
   
   var convertHandler = new ConvertHandler();
 
@@ -27,4 +27,4 @@ module.exports = function (app) {
       res.json({"initNum":initNum, "initUnit":initUnit, "returnNum": returnNum, "returnUnit": returnUnit, "string": toString});
     });
     
-};
+}

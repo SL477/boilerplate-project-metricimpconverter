@@ -6,9 +6,10 @@
 *       (if additional are added, keep them at the very end!)
 */
 
-var chai = require('chai');
-var assert = chai.assert;
-var ConvertHandler = require('../controllers/convertHandler.js');
+import { assert as _assert } from 'chai';
+var assert = _assert;
+import ConvertHandler from '../controllers/convertHandler.js';
+import {suite, test} from 'mocha';
 
 var convertHandler = new ConvertHandler();
 
